@@ -1,7 +1,7 @@
 # SIAPASN - Platform Simulasi CAT & Pembelajaran Mandiri Calon ASN
 
 <p align="center">
-  <img src="public/logo.svg" alt="SIAPASN Logo" width="220" />
+  <img src="public/logo.svg" alt="SIAPASN Logo" width="380" />
 </p>
 
 <p align="center">
