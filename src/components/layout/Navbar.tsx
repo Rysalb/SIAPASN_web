@@ -28,7 +28,6 @@ export function Navbar() {
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [userDropdownOpen, setUserDropdownOpen] = useState(false);
-  const [demoSwitching, setDemoSwitching] = useState(false);
 
   useEffect(() => {
     fetchUser();
@@ -52,26 +51,6 @@ export function Navbar() {
     setUserDropdownOpen(false);
     router.push('/');
     router.refresh();
-  };
-
-  const handleQuickLogin = async (email: string) => {
-    setDemoSwitching(true);
-    try {
-      const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password: 'password123' }),
-      });
-      if (res.ok) {
-        await fetchUser();
-        setUserDropdownOpen(false);
-        router.refresh();
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setDemoSwitching(false);
-    }
   };
 
   const navLinks = [
@@ -190,34 +169,6 @@ export function Navbar() {
                       <span>Admin Management</span>
                     </Link>
                   )}
-
-                  {/* Fast Account Switcher for Demo testing */}
-                  <div className="my-1.5 border-t border-[var(--border)] pt-1.5">
-                    <div className="px-3 py-1 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider">
-                      Ganti Akun Cepat (Demo):
-                    </div>
-                    <button
-                      onClick={() => handleQuickLogin('user@siapasn.id')}
-                      className="w-full text-left px-3 py-1.5 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] rounded-md flex items-center justify-between"
-                    >
-                      <span>Budi (Peserta)</span>
-                      {user.email === 'user@siapasn.id' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>}
-                    </button>
-                    <button
-                      onClick={() => handleQuickLogin('admin@siapasn.id')}
-                      className="w-full text-left px-3 py-1.5 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] rounded-md flex items-center justify-between"
-                    >
-                      <span>Admin Konten</span>
-                      {user.email === 'admin@siapasn.id' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>}
-                    </button>
-                    <button
-                      onClick={() => handleQuickLogin('superadmin@siapasn.id')}
-                      className="w-full text-left px-3 py-1.5 text-xs text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)] rounded-md flex items-center justify-between"
-                    >
-                      <span>Super Admin</span>
-                      {user.email === 'superadmin@siapasn.id' && <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>}
-                    </button>
-                  </div>
 
                   <div className="border-t border-[var(--border)] pt-1 mt-1">
                     <button
