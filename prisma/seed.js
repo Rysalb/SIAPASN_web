@@ -71,24 +71,6 @@ async function main() {
     },
   });
 
-  const demoUser2 = await prisma.user.upsert({
-    where: { email: 'dewi.safitri@siapasn.id' },
-    update: {},
-    create: {
-      name: 'Dewi Safitri',
-      email: 'dewi.safitri@siapasn.id',
-      password: passwordHash,
-      role: 'USER',
-      profile: {
-        create: {
-          phone: '087812345678',
-          province: 'DI Yogyakarta',
-          educationLevel: 'S1 Psikologi',
-        },
-      },
-    },
-  });
-
   console.log('✓ Users created');
 
   // 2. Categories & Subcategories
@@ -544,73 +526,7 @@ Kesimpulan: Sebagian yang bertugas di bagian pelayanan memiliki integritas tingg
     console.log('✓ Standard SKD Exam Package created with', allQuestions.length, 'questions');
   }
 
-  // 6. Seed an Initial Sample Result for User Demo
-  if (examPkg) {
-    const existingAttempt = await prisma.examAttempt.findFirst({
-      where: { userId: demoUser.id, examPackageId: examPkg.id },
-    });
-
-    if (!existingAttempt) {
-      const now = new Date();
-      const started = new Date(now.getTime() - 1000 * 60 * 85);
-      const attempt = await prisma.examAttempt.create({
-        data: {
-          userId: demoUser.id,
-          examPackageId: examPkg.id,
-          startedAt: started,
-          endedAt: now,
-          expiresAt: new Date(started.getTime() + 1000 * 60 * 100),
-          status: 'COMPLETED',
-          totalScore: 412,
-        },
-      });
-
-      await prisma.examResult.create({
-        data: {
-          attemptId: attempt.id,
-          twkScore: 100,
-          tiuScore: 125,
-          tkpScore: 187,
-          totalScore: 412,
-          isPassed: true,
-          correctCount: 88,
-          incorrectCount: 17,
-          unansweredCount: 5,
-        },
-      });
-
-      // Second user attempt for Leaderboard
-      const attempt2 = await prisma.examAttempt.create({
-        data: {
-          userId: demoUser2.id,
-          examPackageId: examPkg.id,
-          startedAt: started,
-          endedAt: now,
-          expiresAt: new Date(started.getTime() + 1000 * 60 * 100),
-          status: 'COMPLETED',
-          totalScore: 435,
-        },
-      });
-
-      await prisma.examResult.create({
-        data: {
-          attemptId: attempt2.id,
-          twkScore: 115,
-          tiuScore: 135,
-          tkpScore: 185,
-          totalScore: 435,
-          isPassed: true,
-          correctCount: 92,
-          incorrectCount: 14,
-          unansweredCount: 4,
-        },
-      });
-
-      console.log('✓ Sample Exam Attempts & Results seeded for Leaderboard');
-    }
-  }
-
-  // 7. Seed System Settings
+  // 6. Seed System Settings
   const settings = [
     { key: 'passing_grade_twk', value: '65', description: 'Passing Grade TWK CPNS' },
     { key: 'passing_grade_tiu', value: '80', description: 'Passing Grade TIU CPNS' },

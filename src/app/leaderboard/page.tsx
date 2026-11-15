@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { Trophy, Medal, Award, Search, Filter, ShieldCheck } from 'lucide-react';
 import { LoadingState, EmptyState } from '@/components/ui/UIStates';
 
 export default function LeaderboardPage() {
+  const router = useRouter();
   const [rankings, setRankings] = useState<any[]>([]);
   const [packages, setPackages] = useState<any[]>([]);
   const [selectedPackage, setSelectedPackage] = useState('ALL');
@@ -88,8 +90,14 @@ export default function LeaderboardPage() {
         <LoadingState message="Memuat papan peringkat..." />
       ) : filtered.length === 0 ? (
         <EmptyState
-          title="Belum Ada Nilai Terdaftar"
-          description="Jadilah peserta pertama yang menyelesaikan tryout pada paket ini!"
+          title={search ? 'Peserta Tidak Ditemukan' : 'Belum Ada Peserta di Papan Peringkat'}
+          description={
+            search
+              ? `Tidak ditemukan peserta dengan kata kunci "${search}". Coba gunakan nama atau provinsi lain.`
+              : 'Papan peringkat ini terbuka secara nasional dan hanya menampilkan hasil tryout dari peserta asli. Jadilah yang pertama menembus passing grade!'
+          }
+          actionLabel={search ? 'Reset Pencarian' : 'Mulai Simulasi Tryout'}
+          onAction={() => (search ? setSearch('') : router.push('/tryout'))}
         />
       ) : (
         <div className="card overflow-hidden shadow-sm">
