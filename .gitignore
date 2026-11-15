@@ -1,0 +1,41 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+
+# Next.js
+/.next/
+/out/
+
+# Production
+build
+
+# Misc
+.DS_Store
+*.pem
+dev.db
+dev.db-journal
+
+# Local Environment Variables (CRITICAL FOR GITHUB SECURITY)
+.env
+.env*.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Uploads directory
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# Master Raw Asset Directory (Saved locally on host machine, kept out of git)
+Data_soal_materi_cpns/
