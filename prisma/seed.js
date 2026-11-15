@@ -53,25 +53,7 @@ async function main() {
     },
   });
 
-  const demoUser = await prisma.user.upsert({
-    where: { email: 'user@siapasn.id' },
-    update: {},
-    create: {
-      name: 'Budi Santoso',
-      email: 'user@siapasn.id',
-      password: passwordHash,
-      role: 'USER',
-      profile: {
-        create: {
-          phone: '085712345678',
-          province: 'Jawa Timur',
-          educationLevel: 'S1 Administrasi Publik',
-        },
-      },
-    },
-  });
-
-  console.log('✓ Users created');
+  console.log('✓ Admin users created');
 
   // 2. Categories & Subcategories
   const categoriesData = [

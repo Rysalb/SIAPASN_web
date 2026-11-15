@@ -8,9 +8,6 @@ import {
   LogIn,
   ShieldAlert,
   Loader2,
-  GraduationCap,
-  Shield,
-  Crown,
   Info,
 } from 'lucide-react';
 
@@ -60,12 +57,6 @@ function LoginForm() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     executeLogin(email, password);
-  };
-
-  const handleQuickDemo = (demoEmail: string) => {
-    setEmail(demoEmail);
-    setPassword('password123');
-    executeLogin(demoEmail, 'password123');
   };
 
   return (
@@ -136,33 +127,6 @@ function LoginForm() {
           )}
         </button>
       </form>
-
-      {/* 1-Click Fast Demo Login Buttons */}
-      <div className="pt-3 border-t border-[var(--border)] space-y-2">
-        <p className="text-[11px] font-bold text-[var(--text-muted)] uppercase tracking-wider text-center">
-          ⚡ Masuk Cepat Akun Demo (1-Klik):
-        </p>
-        <div className="grid grid-cols-2 gap-2">
-          <button
-            type="button"
-            disabled={loading}
-            onClick={() => handleQuickDemo('user@siapasn.id')}
-            className="flex items-center justify-center gap-1.5 p-2 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-emerald-500 hover:bg-emerald-50/30 dark:hover:bg-emerald-950/20 text-xs font-bold text-[var(--text-primary)] transition-all"
-          >
-            <GraduationCap className="w-4 h-4 text-emerald-500" />
-            <span>Peserta (Budi)</span>
-          </button>
-          <button
-            type="button"
-            disabled={loading}
-            onClick={() => handleQuickDemo('admin@siapasn.id')}
-            className="flex items-center justify-center gap-1.5 p-2 rounded-xl border border-[var(--border)] bg-[var(--bg-card)] hover:border-indigo-500 hover:bg-indigo-50/30 dark:hover:bg-indigo-950/20 text-xs font-bold text-[var(--text-primary)] transition-all"
-          >
-            <Shield className="w-4 h-4 text-indigo-500" />
-            <span>Admin Konten</span>
-          </button>
-        </div>
-      </div>
 
       <div className="pt-2 text-center text-xs text-[var(--text-muted)] border-t border-[var(--border)]">
         Belum memiliki akun?{' '}
